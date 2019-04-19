@@ -3,19 +3,22 @@ package terrenoagricola;
 import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import utils.Semaforo;
 
 /**
  *
  * @author Carlos Contreras
  */
 public class Hectarea extends JPanel {
+    
+    public Semaforo semaforo;
+    public boolean estaAsignada;
 
-    public boolean asignado;
-
-    public Hectarea(Color tipo) {
+    public Hectarea(Color tipoHectarea) {
+        this.semaforo = new Semaforo(1); // Binario
         setOpaque(true);
-        asignado = false;
-        setBackground(tipo);
+        estaAsignada = false;
+        setBackground(tipoHectarea);
         setBorder(BorderFactory.createRaisedBevelBorder());
     }
 }
