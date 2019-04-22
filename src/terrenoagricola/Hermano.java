@@ -3,6 +3,7 @@ package terrenoagricola;
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.SwingUtilities;
 import utils.Rutinas;
 import utils.Semaforo;
 
@@ -26,20 +27,20 @@ public class Hermano extends Thread {
     public void run() {
         Hectarea hectareaAsignada;
         while (hectareasDisponibles()) {
-                hectareaAsignada = hectareasTerreno[Rutinas.nextInt(0, 99)];
-                // Sección crítica
-                hectareaAsignada.semaforo.Espera();
-                if (hectareaAsignada.estaAsignada) { // Si está ocupada se vuelve a buscar otra hectárea
-                    hectareaAsignada.semaforo.Libera();
-                    continue;
-                }
-                hectareaAsignada.estaAsignada = true; // Lo marca como assignada
-                hectareaAsignada.semaforo.Libera(); // Libera primero antes de hacer sus operaciones
-                // Operaciones
-                hectareaAsignada.setBackground(colorHermano);
-//                hectareaAsignada.updateUI();
-//                dormir(20);
-                hectareasAsignadas++;
+            hectareaAsignada = hectareasTerreno[Rutinas.nextInt(0, 99)];
+            // Sección crítica
+            hectareaAsignada.semaforo.Espera();
+            if (hectareaAsignada.estaAsignada) { // Si está ocupada se vuelve a buscar otra hectárea
+                hectareaAsignada.semaforo.Libera();
+                continue;
+            }
+            hectareaAsignada.estaAsignada = true; // Lo marca como assignada
+            hectareaAsignada.semaforo.Libera(); // Libera primero antes de hacer sus operaciones
+            // Operaciones
+            hectareaAsignada.setBackground(colorHermano);
+//            dormir(10);
+//            hectareaAsignada.updateUI();
+            hectareasAsignadas++;
         }
     }
 
@@ -51,7 +52,7 @@ public class Hermano extends Thread {
         }
         return false;
     }
-    
+
     public void dormir(int milisegundos) {
         try {
             sleep(milisegundos);
